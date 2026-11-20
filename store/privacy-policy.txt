@@ -1,0 +1,37 @@
+PLASMORA PRIVACY POLICY
+
+Last updated: 13 November 2026
+
+Plasmora ("the app") is a music visualiser for Android. This policy explains what the app does with your information. In short: Plasmora has no account, no advertising and no analytics, and it does not record or store your audio.
+
+1. WHO WE ARE
+The app is published by [YOUR NAME OR BUSINESS NAME]. Contact: [YOUR CONTACT EMAIL].
+
+2. AUDIO
+Plasmora listens to the music playing on your device (using Android's system-audio capture, which you approve each time) or to your microphone, only to draw the visuals. The audio is analysed on your device in real time. It is not recorded, saved, or sent anywhere. The microphone and system-audio capture are used only while the visualiser is running, and you can stop them at any time.
+
+3. NOW-PLAYING INFORMATION
+If you grant notification access, Plasmora reads the song title, artist, album, album art and playback position of the media currently playing, so it can show the player controls and lyrics. This information stays on your device, except as described in section 4.
+
+4. LYRICS (ONLY INFORMATION SENT OFF YOUR DEVICE)
+To show lyrics, the app sends the song title, artist name, album name and track length to the free lyrics service LRCLIB (lrclib.net). No account, device identifier or audio is sent. Lyrics are cached on your device. Please see LRCLIB's own terms for how they handle requests. If you do not want this, turn lyrics off in Settings.
+
+5. WHAT STAYS ON YOUR DEVICE
+Your settings, liked and disliked effects, and generated preview images are stored locally on your device and are removed when you uninstall the app.
+
+6. PERMISSIONS
+- Microphone: to visualise sound from the microphone.
+- Screen/audio capture (foreground service): to visualise the audio playing on your device. The screen itself is not recorded.
+- Notification access (optional): to read now-playing information.
+- Notifications: to show the ongoing "visualiser running" notification.
+- Display over other apps (optional): to show the floating visualiser.
+- Internet: to fetch lyrics (section 4).
+
+7. WHAT WE DO NOT DO
+We do not sell or share personal data, show ads, use analytics or tracking tools, or build profiles. We do not knowingly collect personal information from children.
+
+8. CHANGES
+If this policy changes, the updated version will be posted at this address with a new date.
+
+9. CONTACT
+Questions: [YOUR CONTACT EMAIL]

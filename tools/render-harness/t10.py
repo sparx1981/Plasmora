@@ -1,0 +1,15 @@
+import sys
+exec(open('/home/claude/harness/t8.py').read().split('cfg={')[0])
+sp=Prog("spike3d.vert","spike3d.frag")
+def draw_spikes(nx=34,nz=26,rot=0.0,tilt=0.5,dist=3.0,cy=-0.1,span=1.9,amp=1.0,far=3.4,pw=1.0,sharp=1.0,inten=1.0,hue=0.4,spread=0.2,phase=0.5):
+    begin(); gl.glEnable(0xBE2); gl.glBlendFuncSeparate(0x302,0x303,0,1)
+    p=sp; gl.glUseProgram(p.id); p.u1i("uAudio",1); p.u1i("uHist",3); pal_unis(p)
+    p.u1i("uNX",nx); p.u1i("uNZ",nz)
+    for k,v in dict(uFit=min(W/H,1.0)**0.55,uAspect=W/H,uRot=rot,uTilt=tilt,uDist=dist,uCy=cy,uFocal=1.7,uSpan=span,uFar=far,uAmp=amp,uPow=pw,uTravel=2.0,uFrac=0.3,uBeat=0.3,uBass=0.4,uSharp=sharp,uIntensity=inten,uPhase=phase,uSpread=spread,uHueLevel=hue).items(): p.u1f(k,v)
+    gl.glDrawArraysInstanced(4,0,3,nx*nz)
+    gl.glBlendFunc(1,1)
+shot("v10_spk",draw_spikes)
+full("pulse.frag","v10_pulse",uScale=0.4,uP1=41,uP2=6,uP3=1,uCy=-0.12,uWidth=0.6,uCore=1.0,uAmp=0.35,uSpread=0.3,uPhase=0.55,uIntensity=0.8)
+full("polytunnel.frag","v10_sq",uP1=4,uP2=12,uP3=2.3,uScale=0.5,uRot=0.12,uCy=-0.17,uCore=0,uSpread=0.3,uPhase=0.05,uIntensity=0.5)
+full("polytunnel.frag","v10_tri",uP1=3,uP2=12,uP3=2.3,uScale=0.4,uRot=0.2,uCy=-2.0,uCore=1.0,uSpread=0.5,uPhase=0.9,uIntensity=0.5)
+full("smoke.frag","v10_smoke",uScale=1.2,uP1=3,uP2=0.6,uP3=1.0,uCore=1.0,uSpread=1.0)

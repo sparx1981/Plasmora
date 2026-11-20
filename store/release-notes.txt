@@ -1,0 +1,13 @@
+PLAY STORE RELEASE NOTES (what's new) - limit 500 characters
+=====
+Welcome to Plasmora, a music visualiser for Android.
+
+- 90+ live effects: plasma, tunnels, smoke, glass, LED and 3D scenes
+- Reacts to music from YouTube Music, Spotify and more
+- Like or dislike effects to shape your own playlist of visuals
+- Song title, album art and lyrics on screen
+- Colour, motion, glow and zoom controls
+- Live wallpaper, always-on mode and picture-in-picture
+- Quick intro on first launch
+
+Requires Android 10 or newer.

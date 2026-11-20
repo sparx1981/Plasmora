@@ -1,0 +1,20 @@
+import sys
+exec(open('/home/claude/harness/t7.py').read().split('if __name__')[0])
+rad=Prog("rad3d.vert","rad3d.frag")
+def draw_rad(n=96,rot=0.0,tilt=0.95,dist=3.4,cy=0.0,R=0.9,amp=0.9,pw=1.1,inner=0.35,spw=0.6,fw=0.18,spin=0.0,inten=1.0,hue=0.3,spread=1.0):
+    begin(); gl.glBlendFunc(1,1); gl.glDisable(0xBE2)
+    p=rad; gl.glUseProgram(p.id); p.u1i("uAudio",1); pal_unis(p)
+    p.u1i("uN",n)
+    for k,v in dict(uFit=min(W/H,1.0)**0.55,uAspect=W/H,uRot=rot,uTilt=tilt,uDist=dist,uCy=cy,uFocal=1.7,uR=R,uAmp=amp,uPow=pw,uBeat=0.3,uBass=0.4,uSpin=spin,uInner=inner,uSpikeW=spw,uFloorW=fw,uIntensity=inten,uPhase=0.0,uSpread=spread,uHueLevel=hue).items(): p.u1f(k,v)
+    gl.glDrawArraysInstanced(4,0,12,n)
+def draw_beads(nx=60,nz=40,rot=0.0,tilt=0.5,dist=3.0,cy=-0.15,span=1.9,amp=0.6,size=11.0,inten=1.0,pw=1.1,far=4.0,hue=0.9,phase=0.45,spread=0.0):
+    begin(); gl.glEnable(0xBE2)
+    gl.glBlendFuncSeparate(0x302,0x303,0,1)
+    p=wave3d; common(p,uKind=2,uLines=nx,uRowsN=nz,uRot=rot,uTilt=tilt,uDist=dist,uCy=cy,uFocal=1.7,uSpan=span,uAmp=amp,uWidth=0.004,uTwist=1.0,uRibW=0.3,uTime=1.0,uTravel=2.0,uFrac=0.3,uPow=pw,uSize=size*H/1000.0,uBass=0.4,uBeat=0.2,uKick=0.3,uFar=far,uIntensity=inten,uPhase=phase,uSpread=spread,uHueLevel=hue,uAlpha=1.0)
+    gl.glEnable(0x8642)
+    gl.glDrawArrays(0,0,nx*nz)
+    gl.glBlendFunc(1,1)
+shot("v9_rad",draw_rad,R=1.25,spw=0.85,fw=0.5,amp=1.1,dist=3.2,inner=0.45,inten=1.4)
+shot("v9_rad2",draw_rad,n=64,tilt=1.2,R=1.3,spw=0.7,fw=0.35,inner=0.7,amp=1.2,inten=1.4,hue=0.6)
+shot("v9_beads",draw_beads,nx=40,nz=30,size=15.0,amp=0.35,tilt=0.62,dist=3.0,cy=-0.1,far=3.4,hue=1.2,phase=0.5)
+shot("v9_beads2",draw_beads,nx=26,nz=20,size=24.0,amp=0.45,tilt=0.75,dist=3.2,far=3.2,hue=1.0,phase=0.1)

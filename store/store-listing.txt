@@ -1,0 +1,36 @@
+APP NAME (max 30)
+Plasmora: 3D Music Visualizer
+
+SHORT DESCRIPTION (max 80)
+Turn the music you play into a live 3D light show.
+
+FULL DESCRIPTION (max 4000)
+Plasmora turns the music you are playing into a live light show. Start a song in YouTube Music, Spotify or almost any other music app, open Plasmora, and watch the visuals move with every beat.
+
+90+ LIVE EFFECTS
+Plasma, tunnels, smoke, glass rings, LED walls, neon grids and full 3D scenes. Every effect reacts to bass, kicks and melody in real time.
+
+BUILD YOUR OWN MIX
+Give effects a thumbs up or thumbs down. Play only the ones you like, skip the ones you don't, and let Plasmora change effects automatically on drops and section changes.
+
+SONG INFO AND LYRICS
+See the song title, album art and synced lyrics on screen, with play, pause and skip controls (needs notification access).
+
+MAKE IT YOURS
+Choose colour palettes or match colours to the album art. Adjust glow, motion, zoom, transitions and image quality.
+
+ALWAYS ON
+Use Plasmora as a live wallpaper, a dim always-on display for your desk, or in picture-in-picture.
+
+PRIVATE BY DESIGN
+Audio is analysed on your device and never recorded or stored. No ads, no analytics, no account.
+
+Requires Android 10 or newer. When you choose to capture music from another app, Android asks for permission to share audio. Plasmora only listens to the sound and never records your screen.
+
+APP CATEGORY: Music & Audio
+CONTACT / PRIVACY POLICY: https://sites.google.com/view/plasmora-privacy-policy/home
+
+GRAPHICS IN THIS FOLDER
+app-icon-512.png             -> App icon (512 x 512)
+feature-graphic-1024x500.png -> Feature graphic (1024 x 500)
+phone-screenshot-1..8.png    -> Phone screenshots (1080 x 1920, 9:16)
