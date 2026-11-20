@@ -15,6 +15,7 @@ keyAlias=plasmora
 keyPassword=...
 ```
 The upload keystore is kept outside this repo. Never commit it.
+The keystore (`plasmora-release.jks`), its details (`keystore-details.txt`) and file backups are in the owner's Google Drive folder "My Android App Creations".
 
 ## Layout
 - `app/src/main/java/app/plasmora/` - Kotlin: `gl/` renderer + presets, `ui/` Compose screens, `audio/` capture service, `media/` now-playing, lyrics (LRCLIB), overlays.
