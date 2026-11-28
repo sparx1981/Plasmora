@@ -526,6 +526,8 @@ private fun MusicTab(s: Settings) {
     ChipRow(listOf("Off", "Small", "Medium", "Large"), s.artSize) { v -> SettingsStore.update { it.copy(artSize = v) } }
     SliderRow("Player background opacity", s.playerOpacity, 0f..1f, { v -> SettingsStore.update { it.copy(playerOpacity = v) } }) { if (it < 0.02f) "Clear" else "%.0f%%".format(it * 100) }
     SwitchRow("Tap album art to open the music app", s.artOpensApp) { v -> SettingsStore.update { it.copy(artOpensApp = v) } }
+    SwitchRow("Voice assistant button", s.voiceAssistantButton,
+        "Shows a mic icon top-right that opens your phone's voice assistant, so you can ask for a different track hands-free (handy when driving). Which music app plays depends on your assistant and what you say.") { v -> SettingsStore.update { it.copy(voiceAssistantButton = v) } }
     SwitchRow("Show song title when it changes", s.trackToast) { v -> SettingsStore.update { it.copy(trackToast = v) } }
     Heading("Lyrics")
     ChipRow(listOf("Off", "Key lines", "Full lyrics"), s.lyricsMode) { v -> SettingsStore.update { it.copy(lyricsMode = v) } }

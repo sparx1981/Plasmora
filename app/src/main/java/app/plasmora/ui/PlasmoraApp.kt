@@ -436,6 +436,15 @@ private fun Root(activity: MainActivity) {
                     modifier = Modifier.clip(RoundedCornerShape(20.dp)).background(Color(0x99000000)).padding(horizontal = 16.dp, vertical = 8.dp)
                 )
             }
+            if (settings.voiceAssistantButton) {
+                IconButton(
+                    onClick = { launchVoiceAssistant(ctx); lastTouch = System.nanoTime() },
+                    modifier = Modifier.align(Alignment.TopEnd)
+                        .windowInsetsPadding(WindowInsets.statusBars.union(WindowInsets.displayCutout))
+                        .padding(end = 16.dp, top = 76.dp).size(40.dp)
+                        .clip(RoundedCornerShape(20.dp)).background(Color(0x99000000))
+                ) { Icon(ThumbIcons.Mic, "Voice assistant", tint = Color.White, modifier = Modifier.size(22.dp)) }
+            }
             if (settings.showFps) {
                 Text(
                     "%.0f fps  %dx%d%s".format(info.fps, info.simW, info.simH, if (info.hdr) "  HDR" else ""),
@@ -1003,5 +1012,22 @@ private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawDancer(
             drawCircle(Color.White.copy(alpha = 0.4f + 0.6f * s0), 1.1f * u, P(14) + Offset(-5f * u, -5f * u))
             drawCircle(Color.White.copy(alpha = 1f - 0.6f * s0), 0.9f * u, P(14) + Offset(5.5f * u, -3.5f * u)) }
         else -> drawCircle(col, headR, P(14))
+    }
+}
+
+/** Opens the device's voice assistant; falls back to the system assistant settings if none can be launched. */
+private fun launchVoiceAssistant(ctx: android.content.Context) {
+    val attempts = listOf(
+        Intent(Intent.ACTION_VOICE_COMMAND),
+        Intent(Intent.ACTION_ASSIST),
+        Intent("android.intent.action.VOICE_ASSIST")
+    )
+    for (i in attempts) {
+        try { ctx.startActivity(i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)); return } catch (_: Throwable) { }
+    }
+    try {
+        ctx.startActivity(Intent(android.provider.Settings.ACTION_VOICE_INPUT_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+    } catch (_: Throwable) {
+        try { ctx.startActivity(Intent(android.provider.Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } catch (_: Throwable) { }
     }
 }

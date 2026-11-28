@@ -103,3 +103,4 @@ Round 21: minSdk 29 (Android 10+); 3-step first-launch onboarding (replay from S
 Round 22: Always show player controls ghosted until notification access granted.
 Round 23: notification access prompt moved above Always show player controls.
 Round 24: Visuals tab: Changing effects then Framing moved to top.
+Round 25: optional voice assistant mic button (Settings > Player controls, on by default); top-right under the cog, always visible; launches the device assistant, falls back to Android's voice assistant settings.
