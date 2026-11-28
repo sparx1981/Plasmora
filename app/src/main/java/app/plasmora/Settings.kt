@@ -88,6 +88,7 @@ data class Settings(
     val progressStyle: Int = 1,        // 0 off, 1 straight, 2 wavy, 3 dancer, 4 equaliser, 5 neon, 6 orb
     val artSize: Int = 2,              // 0 off, 1 small, 2 medium, 3 large
     val artOpensApp: Boolean = true,
+    val dancerGenre: Boolean = true,   // Dancer progress bar picks its dancer from the artist's genre (online lookup)
     val voiceAssistantButton: Boolean = true, // mic icon that launches the device voice assistant
     val playerOpacity: Float = 0f,   // background of the player controls, 0 = clear
     val lyricsStyle: Int = 5,          // 0 plain, 1 glow, 2 neon, 3 pulse, 4 palette gradient, 5 inside the visual
@@ -211,6 +212,7 @@ object SettingsStore {
             progressStyle = p.getInt("progressStyle", d.progressStyle),
             artSize = p.getInt("artSize", d.artSize),
             artOpensApp = p.getBoolean("artOpensApp", d.artOpensApp),
+            dancerGenre = p.getBoolean("dancerGenre", d.dancerGenre),
             voiceAssistantButton = p.getBoolean("voiceAssistantButton", d.voiceAssistantButton),
             playerOpacity = p.getFloat("playerOpacity", d.playerOpacity),
             lyricsMode = p.getInt("lyricsMode", d.lyricsMode),
@@ -293,6 +295,7 @@ object SettingsStore {
             .putInt("progressStyle", s.progressStyle)
             .putInt("artSize", s.artSize)
             .putBoolean("artOpensApp", s.artOpensApp)
+            .putBoolean("dancerGenre", s.dancerGenre)
             .putBoolean("voiceAssistantButton", s.voiceAssistantButton)
             .putFloat("playerOpacity", s.playerOpacity)
             .putInt("lyricsMode", s.lyricsMode)

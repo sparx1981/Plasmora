@@ -104,3 +104,4 @@ Round 22: Always show player controls ghosted until notification access granted.
 Round 23: notification access prompt moved above Always show player controls.
 Round 24: Visuals tab: Changing effects then Framing moved to top.
 Round 25: optional voice assistant mic button (Settings > Player controls, on by default); top-right under the cog, always visible; launches the device assistant, falls back to Android's voice assistant settings.
+Round 26: Dancer progress bar: 8 dancers (added Rocker, Latin, Country), 8 moves each (was 4); dancer + moves chosen from the artist's genre (MusicBrainz artist tags, artist name only, cached, switch in Settings > Player controls) and moves follow the music's energy. Privacy policy updated (section 4A).

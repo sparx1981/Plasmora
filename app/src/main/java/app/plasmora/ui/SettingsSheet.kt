@@ -522,6 +522,10 @@ private fun MusicTab(s: Settings) {
     Heading("Player controls")
     Text("Progress bar", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     ChipRow(listOf("Off", "Straight", "Wavy", "Dancer", "Equaliser", "Neon", "Orb"), s.progressStyle) { v -> SettingsStore.update { it.copy(progressStyle = v) } }
+    if (s.progressStyle == 3) {
+        SwitchRow("Dancer matches the music's genre", s.dancerGenre,
+            "Picks the dancer and moves to suit the artist's genre. Sends only the artist name to musicbrainz.org. Moves also follow the music's energy.") { v -> SettingsStore.update { it.copy(dancerGenre = v) } }
+    }
     Text("Album art in the player", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     ChipRow(listOf("Off", "Small", "Medium", "Large"), s.artSize) { v -> SettingsStore.update { it.copy(artSize = v) } }
     SliderRow("Player background opacity", s.playerOpacity, 0f..1f, { v -> SettingsStore.update { it.copy(playerOpacity = v) } }) { if (it < 0.02f) "Clear" else "%.0f%%".format(it * 100) }

@@ -13,8 +13,11 @@ Plasmora listens to the music playing on your device (using Android's system-aud
 3. NOW-PLAYING INFORMATION
 If you grant notification access, Plasmora reads the song title, artist, album, album art and playback position of the media currently playing, so it can show the player controls and lyrics. This information stays on your device, except as described in section 4.
 
-4. LYRICS (ONLY INFORMATION SENT OFF YOUR DEVICE)
+4. LYRICS (INFORMATION SENT OFF YOUR DEVICE)
 To show lyrics, the app sends the song title, artist name, album name and track length to the free lyrics service LRCLIB (lrclib.net). No account, device identifier or audio is sent. Lyrics are cached on your device. Please see LRCLIB's own terms for how they handle requests. If you do not want this, turn lyrics off in Settings.
+
+4A. DANCER GENRE LOOKUP (OPTIONAL)
+If you choose the "Dancer" progress bar, the app can match the dancer's style to the artist's genre. To do this it sends ONLY the artist name (not the song title) to the free MusicBrainz service (musicbrainz.org) and receives the artist's genre tags. No account, device identifier or audio is sent. Results are cached on your device so each artist is looked up once. Please see MusicBrainz's own terms for how they handle requests. You can turn this off in Settings (Player controls > Dancer matches the music's genre).
 
 5. WHAT STAYS ON YOUR DEVICE
 Your settings, liked and disliked effects, and generated preview images are stored locally on your device and are removed when you uninstall the app.
@@ -25,7 +28,7 @@ Your settings, liked and disliked effects, and generated preview images are stor
 - Notification access (optional): to read now-playing information.
 - Notifications: to show the ongoing "visualiser running" notification.
 - Display over other apps (optional): to show the floating visualiser.
-- Internet: to fetch lyrics (section 4).
+- Internet: to fetch lyrics (section 4) and, if enabled, the artist's genre for the Dancer (section 4A).
 
 7. WHAT WE DO NOT DO
 We do not sell or share personal data, show ads, use analytics or tracking tools, or build profiles. We do not knowingly collect personal information from children.
