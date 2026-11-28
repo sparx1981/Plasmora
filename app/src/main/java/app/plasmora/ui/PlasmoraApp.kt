@@ -438,7 +438,7 @@ private fun Root(activity: MainActivity) {
             }
             if (settings.voiceAssistantButton) {
                 IconButton(
-                    onClick = { launchVoiceAssistant(ctx, activity); lastTouch = System.nanoTime() },
+                    onClick = { if (launchVoiceAssistant(ctx, activity)) activity.armReturnAfterAssistant(); lastTouch = System.nanoTime() },
                     modifier = Modifier.align(Alignment.TopEnd)
                         .windowInsetsPadding(WindowInsets.statusBars.union(WindowInsets.displayCutout))
                         .padding(end = 16.dp, top = 76.dp).size(40.dp)
@@ -906,8 +906,11 @@ private val DANCER_COLOURS = longArrayOf(0xFFFFFFFF, 0xFFFF9A3C, 0xFF7CF4FF, 0xF
  * system to show the default assistant's own session (for Gemini, the small "Ask Gemini" bar over the current screen).
  * If that isn't available, falls back to launching the default assistant app directly, then to system settings.
  */
-private fun launchVoiceAssistant(ctx: android.content.Context, activity: android.app.Activity?) {
-    try { if (activity != null && activity.showAssist(null)) return } catch (_: Throwable) { }
+private fun launchVoiceAssistant(ctx: android.content.Context, activity: android.app.Activity?): Boolean {
+    // "invocation_type" is what the system's assist gesture tells the assistant; 6 = held power/assistant button, which
+    // makes Gemini start listening straight away instead of waiting for a tap on its mic.
+    val args = android.os.Bundle().apply { putInt("invocation_type", 6); putBoolean(Intent.EXTRA_ASSIST_INPUT_HINT_KEYBOARD, false) }
+    try { if (activity != null && activity.showAssist(args)) return true } catch (_: Throwable) { }
     val pm = ctx.packageManager
     fun go(i: Intent): Boolean = try { ctx.startActivity(i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)); true } catch (_: Throwable) { false }
     // package of the default assistant (e.g. Google/Gemini), from "package/service"
@@ -920,11 +923,12 @@ private fun launchVoiceAssistant(ctx: android.content.Context, activity: android
             val ri = try { pm.queryIntentActivities(probe, 0).firstOrNull() } catch (_: Throwable) { null }
             // address the first matching activity explicitly so no chooser can appear
             val intent = if (ri != null) Intent(action).setClassName(ri.activityInfo.packageName, ri.activityInfo.name) else probe
-            if (go(intent)) return
+            if (go(intent)) return true
         }
     }
     // default assistant unknown: plain assist request (may show a chooser if several assistants exist)
-    if (go(Intent(Intent.ACTION_ASSIST))) return
-    if (go(Intent(Intent.ACTION_VOICE_COMMAND))) return
+    if (go(Intent(Intent.ACTION_ASSIST))) return true
+    if (go(Intent(Intent.ACTION_VOICE_COMMAND))) return true
     if (!go(Intent(android.provider.Settings.ACTION_VOICE_INPUT_SETTINGS))) go(Intent(android.provider.Settings.ACTION_SETTINGS))
+    return false
 }
