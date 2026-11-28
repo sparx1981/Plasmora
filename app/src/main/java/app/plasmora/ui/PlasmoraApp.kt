@@ -438,7 +438,7 @@ private fun Root(activity: MainActivity) {
             }
             if (settings.voiceAssistantButton) {
                 IconButton(
-                    onClick = { launchVoiceAssistant(ctx); lastTouch = System.nanoTime() },
+                    onClick = { launchVoiceAssistant(ctx, activity); lastTouch = System.nanoTime() },
                     modifier = Modifier.align(Alignment.TopEnd)
                         .windowInsetsPadding(WindowInsets.statusBars.union(WindowInsets.displayCutout))
                         .padding(end = 16.dp, top = 76.dp).size(40.dp)
@@ -902,11 +902,12 @@ object DancerPick {
 private val DANCER_COLOURS = longArrayOf(0xFFFFFFFF, 0xFFFF9A3C, 0xFF7CF4FF, 0xFFFF8FD0, 0xFFFFD54F, 0xFFFF5252, 0xFF69F0AE, 0xFFB388FF)
 
 /**
- * Opens the user's default voice assistant the same way its hardware button does (ACTION_ASSIST), so Gemini shows its
- * small overlay at the bottom of the screen. The default assistant is read from system settings and addressed directly,
- * so Android never shows a "Complete action using" chooser. Falls back to the system assistant settings.
+ * Opens the user's default voice assistant the way the assistant button / gesture does: Activity.showAssist() asks the
+ * system to show the default assistant's own session (for Gemini, the small "Ask Gemini" bar over the current screen).
+ * If that isn't available, falls back to launching the default assistant app directly, then to system settings.
  */
-private fun launchVoiceAssistant(ctx: android.content.Context) {
+private fun launchVoiceAssistant(ctx: android.content.Context, activity: android.app.Activity?) {
+    try { if (activity != null && activity.showAssist(null)) return } catch (_: Throwable) { }
     val pm = ctx.packageManager
     fun go(i: Intent): Boolean = try { ctx.startActivity(i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)); true } catch (_: Throwable) { false }
     // package of the default assistant (e.g. Google/Gemini), from "package/service"
