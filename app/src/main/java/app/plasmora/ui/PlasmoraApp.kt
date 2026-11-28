@@ -901,19 +901,29 @@ object DancerPick {
 
 private val DANCER_COLOURS = longArrayOf(0xFFFFFFFF, 0xFFFF9A3C, 0xFF7CF4FF, 0xFFFF8FD0, 0xFFFFD54F, 0xFFFF5252, 0xFF69F0AE, 0xFFB388FF)
 
-/** Opens the device's voice assistant; falls back to the system assistant settings if none can be launched. */
+/**
+ * Opens the user's default voice assistant the same way its hardware button does (ACTION_ASSIST), so Gemini shows its
+ * small overlay at the bottom of the screen. The default assistant is read from system settings and addressed directly,
+ * so Android never shows a "Complete action using" chooser. Falls back to the system assistant settings.
+ */
 private fun launchVoiceAssistant(ctx: android.content.Context) {
-    val attempts = listOf(
-        Intent(Intent.ACTION_VOICE_COMMAND),
-        Intent(Intent.ACTION_ASSIST),
-        Intent("android.intent.action.VOICE_ASSIST")
-    )
-    for (i in attempts) {
-        try { ctx.startActivity(i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)); return } catch (_: Throwable) { }
+    val pm = ctx.packageManager
+    fun go(i: Intent): Boolean = try { ctx.startActivity(i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)); true } catch (_: Throwable) { false }
+    // package of the default assistant (e.g. Google/Gemini), from "package/service"
+    val pkg = try {
+        android.provider.Settings.Secure.getString(ctx.contentResolver, "assistant")?.let { android.content.ComponentName.unflattenFromString(it)?.packageName }
+    } catch (_: Throwable) { null }
+    if (pkg != null) {
+        for (action in listOf(Intent.ACTION_ASSIST, Intent.ACTION_VOICE_COMMAND, "android.intent.action.VOICE_ASSIST")) {
+            val probe = Intent(action).setPackage(pkg)
+            val ri = try { pm.queryIntentActivities(probe, 0).firstOrNull() } catch (_: Throwable) { null }
+            // address the first matching activity explicitly so no chooser can appear
+            val intent = if (ri != null) Intent(action).setClassName(ri.activityInfo.packageName, ri.activityInfo.name) else probe
+            if (go(intent)) return
+        }
     }
-    try {
-        ctx.startActivity(Intent(android.provider.Settings.ACTION_VOICE_INPUT_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-    } catch (_: Throwable) {
-        try { ctx.startActivity(Intent(android.provider.Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } catch (_: Throwable) { }
-    }
+    // default assistant unknown: plain assist request (may show a chooser if several assistants exist)
+    if (go(Intent(Intent.ACTION_ASSIST))) return
+    if (go(Intent(Intent.ACTION_VOICE_COMMAND))) return
+    if (!go(Intent(android.provider.Settings.ACTION_VOICE_INPUT_SETTINGS))) go(Intent(android.provider.Settings.ACTION_SETTINGS))
 }
