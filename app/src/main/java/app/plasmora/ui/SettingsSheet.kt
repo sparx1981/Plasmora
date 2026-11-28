@@ -522,10 +522,16 @@ private fun MusicTab(s: Settings) {
     Heading("Player controls")
     Text("Progress bar", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     ChipRow(listOf("Off", "Straight", "Wavy", "Dancer", "Equaliser", "Neon", "Orb"), s.progressStyle) { v -> SettingsStore.update { it.copy(progressStyle = v) } }
+    if (s.progressStyle == 3) {
+        SwitchRow("Dancer matches the music's genre", s.dancerGenre,
+            "Picks the dancer and moves to suit the artist's genre. Sends only the artist name to musicbrainz.org. Moves also follow the music's energy.") { v -> SettingsStore.update { it.copy(dancerGenre = v) } }
+    }
     Text("Album art in the player", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     ChipRow(listOf("Off", "Small", "Medium", "Large"), s.artSize) { v -> SettingsStore.update { it.copy(artSize = v) } }
     SliderRow("Player background opacity", s.playerOpacity, 0f..1f, { v -> SettingsStore.update { it.copy(playerOpacity = v) } }) { if (it < 0.02f) "Clear" else "%.0f%%".format(it * 100) }
     SwitchRow("Tap album art to open the music app", s.artOpensApp) { v -> SettingsStore.update { it.copy(artOpensApp = v) } }
+    SwitchRow("Voice assistant button", s.voiceAssistantButton,
+        "Shows a mic icon top-right that opens your phone's voice assistant, so you can ask for a different track hands-free (handy when driving). Which music app plays depends on your assistant and what you say.") { v -> SettingsStore.update { it.copy(voiceAssistantButton = v) } }
     SwitchRow("Show song title when it changes", s.trackToast) { v -> SettingsStore.update { it.copy(trackToast = v) } }
     Heading("Lyrics")
     ChipRow(listOf("Off", "Key lines", "Full lyrics"), s.lyricsMode) { v -> SettingsStore.update { it.copy(lyricsMode = v) } }

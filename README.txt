@@ -103,3 +103,8 @@ Round 21: minSdk 29 (Android 10+); 3-step first-launch onboarding (replay from S
 Round 22: Always show player controls ghosted until notification access granted.
 Round 23: notification access prompt moved above Always show player controls.
 Round 24: Visuals tab: Changing effects then Framing moved to top.
+Round 25: optional voice assistant mic button (Settings > Player controls, on by default); top-right under the cog, always visible; launches the device assistant, falls back to Android's voice assistant settings.
+Round 26: Dancer progress bar: 8 dancers (added Rocker, Latin, Country), 8 moves each (was 4); dancer + moves chosen from the artist's genre (MusicBrainz artist tags, artist name only, cached, switch in Settings > Player controls) and moves follow the music's energy. Privacy policy updated (section 4A).
+Round 27: mic button opens the default assistant directly via ACTION_ASSIST (Gemini overlay, same as the assistant button) instead of showing the 'Complete action using' chooser.
+Round 28: mic button uses Activity.showAssist() so the default assistant (Gemini) appears as its overlay bar, like the assistant button; app-launch fallbacks kept.
+Round 29: mic button hints the assistant to start listening (invocation_type) and, once the assistant gets a track playing, brings Plasmora back to the front (best effort; Android may block it).

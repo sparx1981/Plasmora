@@ -1,13 +1,5 @@
 PLAY STORE RELEASE NOTES (what's new) - limit 500 characters
 =====
-Welcome to Plasmora, a music visualiser for Android.
+New: Voice assistant button. Tap the mic icon to ask your phone's assistant (such as Gemini) to play a different track, hands-free. Handy when driving. Turn it on or off in Settings > Player controls.
 
-- 90+ live effects: plasma, tunnels, smoke, glass, LED and 3D scenes
-- Reacts to music from YouTube Music, Spotify and more
-- Like or dislike effects to shape your own playlist of visuals
-- Song title, album art and lyrics on screen
-- Colour, motion, glow and zoom controls
-- Live wallpaper, always-on mode and picture-in-picture
-- Quick intro on first launch
-
-Requires Android 10 or newer.
+New: The Dancer progress bar has 8 dancers (adding a rocker, a latin dancer and a country dancer), each with 8 moves. They match the artist's genre and move to the energy of the music.

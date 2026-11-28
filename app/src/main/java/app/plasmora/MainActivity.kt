@@ -20,6 +20,12 @@ import app.plasmora.gl.VisView
 import app.plasmora.media.AppState
 import app.plasmora.media.NowPlaying
 import app.plasmora.ui.PlasmoraApp
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class MainActivity : ComponentActivity() {
@@ -58,6 +64,29 @@ class MainActivity : ComponentActivity() {
                 if (showSplash.value) app.plasmora.ui.SplashScreen { showSplash.value = false }
             }
         }
+    }
+
+    private var returnJob: Job? = null
+
+    /**
+     * Called when the user taps the mic button. Once the assistant has got a track playing (a new song, or playback that
+     * wasn't running), bring Plasmora back to the front. Gives up after 90 s. Android may refuse to bring an app forward
+     * from the background; if so nothing happens and the user simply returns themselves.
+     */
+    fun armReturnAfterAssistant() {
+        returnJob?.cancel()
+        val before = NowPlaying.state.value
+        returnJob = lifecycleScope.launch {
+            val started = withTimeoutOrNull(90_000) {
+                NowPlaying.state.first { it.playing && it.title.isNotEmpty() && (!before.playing || it.title != before.title) }
+            }
+            if (started != null) { delay(1500); bringToFront() }
+        }
+    }
+
+    private fun bringToFront() {
+        try { startActivity(Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_SINGLE_TOP)) } catch (_: Throwable) { }
+        try { (getSystemService(ACTIVITY_SERVICE) as android.app.ActivityManager).moveTaskToFront(taskId, android.app.ActivityManager.MOVE_TASK_WITH_HOME) } catch (_: Throwable) { }
     }
 
     override fun onNewIntent(intent: Intent) {

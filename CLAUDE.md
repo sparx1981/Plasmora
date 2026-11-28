@@ -2,7 +2,7 @@
 
 Android music visualiser (Geiss-inspired). Kotlin + Jetpack Compose + OpenGL ES 3.0.
 - Package / applicationId: `app.plasmora`. minSdk 29 (Android 10+), target/compile 36.
-- Published on Google Play: closed testing (Alpha), version 1 (1.0). Next upload must bump `versionCode` to 2 in `app/build.gradle.kts`.
+- Published on Google Play: closed testing (Alpha), version 1 (1.0). versionCode is now 3 (next upload must be 4; Play had already used 2).
 - Privacy policy: https://sites.google.com/view/plasmora-privacy-policy/home (linked in Settings > App > About).
 
 ## Build
